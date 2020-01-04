@@ -18,6 +18,7 @@
   "homepage": "https://github.com/whymeoff/task-app-course#readme",
   "dependencies": {
     "chalk": "^3.0.0",
-    "validator": "^12.1.0"
+    "validator": "^12.1.0",
+    "yargs": "^15.1.0"
   }
 }
