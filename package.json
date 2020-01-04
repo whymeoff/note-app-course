@@ -1,0 +1,22 @@
+{
+  "name": "note-app-course",
+  "version": "1.0.0",
+  "description": "Notes app from course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whymeoff/task-app-course.git"
+  },
+  "author": "Mark K.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whymeoff/task-app-course/issues"
+  },
+  "homepage": "https://github.com/whymeoff/task-app-course#readme",
+  "dependencies": {
+    "validator": "^12.1.0"
+  }
+}
