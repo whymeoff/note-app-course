@@ -7,8 +7,9 @@ const getNotes = () => {
 
 const addNote = (title, body) => {
     const notes = loadNotes();
+    const note = notes.find((el) => el.title === title)
 
-    if (!findTitle(notes, title)) {
+    if (!note) {
         notes.push({
             title: title,
             body: body
@@ -22,12 +23,9 @@ const addNote = (title, body) => {
 
 const deleteNote = (title) => {
     let notes = loadNotes();
-
-    if (findTitle(notes, title)) {
-        notes = notes.filter((el) => {
-            return el.title !== title;
-        })
-        saveNotes(notes);
+    let notesToKeep = notes.filter((el) => el.title !== title)
+    if (notesToKeep.length < notes.length) {
+        saveNotes(notesToKeep);
         console.log(chalk.bgGreen('Note removed!'));
     } else {
         console.log(chalk.bgRed('No note found!'));
@@ -49,22 +47,13 @@ const listNotes = () => {
 
 const readNote = (title) => {
     const notes = loadNotes();
-    let note = findTitle(notes, title);
+    let note = notes.find((el) => el.title === title);
 
     if (note) {
         console.log(`Title: ${note.title}`);
         console.log(`Body: ${note.body}`);
     } else {
         console.log('Can`t find a note!');
-    }
-}
-
-const findTitle = (notes, title) => {
-    notes = notes.filter((el) => {
-        return el.title === title;
-    })
-    if (notes.length === 0) return 0; else {
-        return notes[0];
     }
 }
 
