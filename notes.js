@@ -1,4 +1,5 @@
 const fs = require('fs');
+const chalk = require('chalk');
 
 const getNotes = () => {
     return 'Your notes...';
@@ -27,8 +28,9 @@ const deleteNote = (title) => {
             return el.title !== title;
         })
         saveNotes(notes);
+        console.log(chalk.bgGreen('Note removed!'));
     } else {
-        console.log('Can`t find this title!');
+        console.log(chalk.bgRed('No note found!'));
     }
 }
 
