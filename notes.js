@@ -7,11 +7,7 @@ const getNotes = () => {
 const addNote = (title, body) => {
     const notes = loadNotes();
 
-    const duplicateNotes = notes.filter((el) => {
-        return el.title === title;
-    })
-
-    if (duplicateNotes.length === 0) {
+    if (!findTitle(notes, title)) {
         notes.push({
             title: title,
             body: body
@@ -20,6 +16,53 @@ const addNote = (title, body) => {
         saveNotes(notes);
     } else {
         console.log('Note title taken');
+    }
+}
+
+const deleteNote = (title) => {
+    let notes = loadNotes();
+
+    if (findTitle(notes, title)) {
+        notes = notes.filter((el) => {
+            return el.title !== title;
+        })
+        saveNotes(notes);
+    } else {
+        console.log('Can`t find this title!');
+    }
+}
+
+const listNotes = () => {
+    const notes = loadNotes();
+
+    if (notes.length != 0) {
+        notes.map((el) => {
+            console.log(`Title: ${el.title}`);
+            console.log(`Body: ${el.body}\n`);
+        })
+    } else {
+        console.log('Empty list!');
+    }
+}
+
+const readNote = (title) => {
+    const notes = loadNotes();
+    let note = findTitle(notes, title);
+
+    if (note) {
+        console.log(`Title: ${note.title}`);
+        console.log(`Body: ${note.body}`);
+    } else {
+        console.log('Can`t find a note!');
+    }
+}
+
+const findTitle = (notes, title) => {
+    notes = notes.filter((el) => {
+        return el.title === title;
+    })
+    if (notes.length === 0) return 0; else {
+        return notes[0];
     }
 }
 
@@ -35,4 +78,4 @@ const loadNotes = () => {
     }
     
 }
-module.exports = {getNotes, addNote};
+module.exports = {getNotes, addNote, deleteNote, listNotes, readNote};
