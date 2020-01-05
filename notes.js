@@ -1,10 +1,6 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
-const getNotes = () => {
-    return 'Your notes...';
-}
-
 const addNote = (title, body) => {
     const notes = loadNotes();
     const note = notes.find((el) => el.title === title)
@@ -17,7 +13,7 @@ const addNote = (title, body) => {
     
         saveNotes(notes);
     } else {
-        console.log('Note title taken');
+        console.log(chalk.bgRed('Note title taken'));
     }
 }
 
@@ -41,7 +37,7 @@ const listNotes = () => {
             console.log(`Body: ${el.body}\n`);
         })
     } else {
-        console.log('Empty list!');
+        console.log(chalk.bgRed('Empty list!'));
     }
 }
 
@@ -53,7 +49,7 @@ const readNote = (title) => {
         console.log(`Title: ${note.title}`);
         console.log(`Body: ${note.body}`);
     } else {
-        console.log('Can`t find a note!');
+        console.log(chalk.bgRed('Can`t find a note!'));
     }
 }
 
@@ -69,4 +65,4 @@ const loadNotes = () => {
     }
     
 }
-module.exports = {getNotes, addNote, deleteNote, listNotes, readNote};
+module.exports = {addNote, deleteNote, listNotes, readNote};

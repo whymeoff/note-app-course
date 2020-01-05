@@ -1,5 +1,4 @@
 const notes = require('./notes');
-const process = require('process');
 const yargs = require('yargs');
 
 yargs.command({
