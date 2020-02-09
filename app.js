@@ -1,61 +1,161 @@
-const notes = require('./notes');
+const utils = require('./utils');
 const yargs = require('yargs');
 
 yargs.command({
-    command: 'add',
-    describe: 'Add new note',
+    command: 'newCrew',
+    describe: 'Create new crew',
+    handler: (argv) => {
+        utils.createCrew()
+    }
+})
+
+yargs.command({
+    command: 'listCrew',
+    describe: 'List crews by params',
     builder: {
-        title: {
-            describe: 'Note title',
+        empty: {
+            describe: 'List crews that need staff'
+        },
+        free: {
+            describe: 'List all crews that have less than 3 calls'
+        }
+    },
+    handler: (argv) => {
+        if (argv.empty && argv.free) console.log('You can choose only one param!')
+        utils.listCrew(argv.free, argv.empty)
+    }
+})
+
+yargs.command({
+    command: 'setDriver',
+    describe: 'Set driver of the crew',
+    builder: {
+        crewID: {
+            describe: 'Input crew ID',
             demandOption: true,
             type: 'string'
         },
-        body: {
-            describe: 'Note body',
+        staffID: {
+            describe: 'Input staff ID',
             demandOption: true,
             type: 'string'
         }
     },
     handler: (argv) => {
-        notes.addNote(argv.title, argv.body);
+        utils.setDriver(argv.crewID, argv.staffID)
     }
 })
 
 yargs.command({
-    command: 'remove',
-    describe: 'Removing note',
+    command: 'setStaff',
+    describe: 'Set staff of the crew',
     builder: {
-        title: {
-            describe: 'Note title',
+        crewID: {
+            describe: 'Input crew ID',
+            demandOption: true,
+            type: 'string'
+        },
+        staffID: {
+            describe: 'Input staff ID',
             demandOption: true,
             type: 'string'
         }
     },
     handler: (argv) => {
-        notes.deleteNote(argv.title);
+        utils.setStaff(argv.crewID, argv.staffID)
     }
 })
 
 yargs.command({
-    command: 'list',
-    describe: 'List notes',
-    handler: () => {
-        notes.listNotes();
-    }
-})
-
-yargs.command({
-    command: 'read',
-    describe: 'Read a note',
+    command: 'createStaff',
+    describe: 'Crete new person - staff',
     builder: {
-        title: {
-            describe: 'Note title',
+        name: {
+            describe: 'Input name of person',
             demandOption: true,
             type: 'string'
         }
     },
     handler: (argv) => {
-        notes.readNote(argv.title);
+        utils.createStaff(argv.name)
+    }
+})
+
+yargs.command({
+    command: 'listStaff',
+    describe: 'List all staff',
+    handler: (argv) => {
+        utils.listStaff()
+    }
+})
+
+yargs.command({
+    command: 'freeStaff',
+    describe: 'Free some staff from some crew',
+    builder: {
+        staffID: {
+            describe: 'Input id of staff',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: (argv) => {
+        utils.freeStaff(argv.staffID)
+    }
+})
+
+yargs.command({
+    command: 'createCall',
+    describe: 'Create new call',
+    builder: {
+        crewID: {
+            describe: 'Input crew ID',
+            demandOption: true,
+            type: 'string' 
+        },
+        description: {
+            describe: 'Describe situation',
+            demandOption: true,
+            type: 'string'
+        },
+        address: {
+            describe: 'Input address',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: (argv) => {
+        utils.createCall(argv.crewID, argv.description, argv.address)
+    }
+})
+
+yargs.command({
+    command: 'listCalls',
+    describe: 'List calls by crew ID',
+    builder: {
+        crewID: {
+            describe: 'Input crew ID',
+            demandOption: true,
+            type: 'string' 
+        }
+    },
+    handler: (argv) => {
+        utils.listCalls(argv.crewID)
+    }
+})
+
+yargs.command({
+    command: 'callDone',
+    describe: 'End some call',
+    builder: {
+        callID: {
+            describe: 'Input ID of call',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: (argv) => {
+        utils.callDone(argv.callID)
     }
 })
 
